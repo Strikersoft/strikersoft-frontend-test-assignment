@@ -1,4 +1,4 @@
-### Demo app is available [here](http://frontend-assignment.strikersoft.com).
+### Demo app is available [here](http://strikersoft.github.io/strikersoft-frontend-test-assignment/).
 
 
 ## Initial setup
@@ -30,7 +30,7 @@ After the data is fetched, the table should be formed. Each row should represent
 
 
 ## Searching
-Searching by `name` field should be implemented. Search field is a normal text input. On input to a search field the table should be automatically updated, showing people, whose name contains the entered substring. Sidebar should be updated dynamically to point to the topmost user.
+Searching by `name` field should be implemented. Search field is a normal text input. On input to a search field the table should be automatically updated, showing people, whose name contains the entered substring. Sidebar should be updated dynamically to point to the new user at the last position.
 Please check the behavior validity for erasing the characters. The table should still be sorted.
 
 
