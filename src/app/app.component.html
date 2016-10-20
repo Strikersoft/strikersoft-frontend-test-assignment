@@ -1,3 +1,5 @@
-<h1>
-  {{title}}
-</h1>
+<ul>
+  <li *ngFor="let animal of animals">
+    <span class="badge">{{animal.id}}</span> {{animal.name}}
+  </li>
+</ul>
