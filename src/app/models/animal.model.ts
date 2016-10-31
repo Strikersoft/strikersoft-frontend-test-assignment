@@ -5,4 +5,4 @@ export class Animal {
   image: string;
   phone: string;
   phrase: string;
-};
+}

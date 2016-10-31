@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
-import { Animal } from './animal.model';
+import { Animal } from '../models/animal.model';
 
 @Injectable()
 export class AnimalsService {
-
   private animalsUrl = 'http://strikersoft.github.io/strikersoft-frontend-test-assignment/data.json';  // URL to ss data
 
   constructor (private http: Http) {}
 
-  getAnimals (): Observable<[Animal]> {
+  getAnimals(): Observable<[Animal]> {
     return this.http.get(this.animalsUrl)
                     .map(this.extractData)
                     .catch(this.handleError);

@@ -1,31 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { AnimalsService } from './animals-service.service';
-import { Animal } from './animal.model';
+import { Component } from '@angular/core';
+import { Animal } from './models/animal.model';
 
+/**
+ * TODO: should not be here as far as i understand. Need to check NG2 best practices
+ */
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers: [ AnimalsService ],
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'app works!';
-  animals: Animal[];
-  errorMessage: string;
+export class AppComponent {
+  searchInput: string;
+  currentAnimal: Animal | null;
 
-  constructor (private service: AnimalsService) {}
+  constructor () {
+    this.currentAnimal = null;
+    this.searchInput = '';
+  }
 
-  ngOnInit() { this.getHeroes(); }
+  onSearchInput(text: string) {
+    this.searchInput = text;
+  }
 
-  getHeroes() {
-    this.service.getAnimals()
-        .subscribe(
-          animals => {
-            this.animals = animals;
-            console.log(animals);
-          },
-          error =>  this.errorMessage = <any>error);
+  onAnimalSelect(animal?: Animal) {
+    this.currentAnimal = animal;
   }
 }

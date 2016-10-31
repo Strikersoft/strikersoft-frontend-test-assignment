@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let animal of animals">
-    <span class="badge">{{animal.id}}</span> {{animal.name}}
-  </li>
+  <app-search-bar (onSearchInput)="onSearchInput($event)"></app-search-bar>
+  <app-animal-preview [currentAnimal]="currentAnimal"></app-animal-preview>
+  <app-animals-list [filterBy]="searchInput" (onSelect)="onAnimalSelect($event)"></app-animals-list>
 </ul>

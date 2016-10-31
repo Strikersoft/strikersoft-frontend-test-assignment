@@ -1,0 +1,6 @@
+<p>
+  <span *ngIf="errorMessage">{{errorMessage}}</span>
+  <li *ngFor="let animal of animalsSorted" (click)="onAnimalSelect(animal)">
+    <span class="badge">{{animal.id}}</span> {{animal.name}}
+  </li>
+</p>
