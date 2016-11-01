@@ -6,7 +6,7 @@ import { Animal } from '../models/animal.model';
 
 @Injectable()
 export class AnimalsService {
-  private animalsUrl = 'http://strikersoft.github.io/strikersoft-frontend-test-assignment/data.json';  // URL to ss data
+  private animalsUrl = 'https://strikersoft.github.io/strikersoft-frontend-test-assignment/data.json';  // URL to ss data
 
   constructor (private http: Http) {}
 
