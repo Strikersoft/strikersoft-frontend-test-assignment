@@ -1,0 +1,6 @@
+<div>
+  <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
+  <app-search-bar (onSortByAge)="onSortByAge()" (onSortByName)="onSortByName()" (onSortReset)="onFiltersReset()" (onSearchInput)="onSearchInput($event)"></app-search-bar>
+  <app-animal-preview [currentAnimal]="currentAnimal"></app-animal-preview>
+  <app-animals-list [animals]="animalsFiltered" (onSelect)="onAnimalSelect($event)"></app-animals-list>
+</div>

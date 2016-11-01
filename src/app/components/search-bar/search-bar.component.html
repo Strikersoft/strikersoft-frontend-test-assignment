@@ -1,0 +1,6 @@
+<div>
+  <input title="search" class="search-input" #search type="text" (keyup)="onInput(search.value)" [(ngModel)]="searchText">
+  <button (click)="onByName()">Sort by name</button>
+  <button (click)="onByAge()">Sort by age</button>
+  <button (click)="onReset()">Reset</button>
+</div>
