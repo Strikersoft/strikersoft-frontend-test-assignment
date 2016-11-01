@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AnimalsService } from './services/animals-service.service';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './containers/app.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { AnimalsListComponent } from './components/animals-list/animals-list.component';
 import { AnimalPreviewComponent } from './components/animal-preview/animal-preview.component';

@@ -1,0 +1,12 @@
+.animals-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.animals-table td {
+  cursor: pointer;
+}
+
+.animals-table > thead > tr {
+  text-align: left;
+}

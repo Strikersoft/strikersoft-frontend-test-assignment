@@ -1,5 +1,18 @@
-<p>
-  <li *ngFor="let animal of animals" (click)="onAnimalSelect(animal)">
-    <span class="badge">{{animal.id}}</span> {{animal.name}}
-  </li>
-</p>
+<table class="animals-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+  <tbody>
+    <tr *ngFor="let animal of animals" (click)="onAnimalSelect(animal)">
+      <td>{{animal.image}}</td>
+      <td>{{animal.name}}</td>
+      <td>{{animal.age}}</td>
+      <td>{{animal.phone}}</td>
+    </tr>
+  </tbody>
+</table>
