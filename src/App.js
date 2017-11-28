@@ -6,13 +6,12 @@ export default class App extends Component {
     super(props);
     this.state = {
       data: [],
-      sort: [],
       checkSearch: false,
-      checkSort: false,
       checkSortName: false,
       checkSortAge: false,
-      item: {},
-      searched: []
+      store: [],
+      searched: [],
+      item: {}
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -26,52 +25,42 @@ export default class App extends Component {
     fetch('data.json')
       .then((httpResponse) => httpResponse.json())
       .then((data) => {
-        this.setState({data: data, store: data, item: data[0]})
+        this.setState({data, searched: data, store: data, item:data[0]})
       });
+
   }
+
   handleClick(item) {
-    this.setState({item: item})
+    this.setState({item})
   }
   handleSearch(){
-    let search = this.state.data.filter((item,index)=>item.name.includes(this.refs.search.value));
-    search.length == 0 ? this.setState({checkSearch: true, searched: [], item: {}}) :
-    this.setState({checkSearch: false, searched: search, item: search[0]})
-   
+    const search = this.state.data.filter((item, index) => item.name.includes(this.refs.search.value));
+    this.refs.search.value == '' ? this.setState({checkSearch: false, data: this.state.store}) : this.setState({checkSearch: true, 
+      searched: search, data: this.state.store, item: search[0]})
   }
   handleNameSort() {
-    let array = this.state.searched.length == 0 ? this.state.data : !this.state.checkSearch ? this.state.searched : this.state.data;
-    if (this.state.checkSortName) {
-      let sorted = array.sort((item, nextItem) => (item.name.trim() < nextItem.name.trim()) ? -1 : (item.name.trim() > nextItem.name.trim()) ? 1 : 0);
-      this.setState({search: sorted, item: sorted[0], checkSortName: !this.state.checkSortName}) 
-    }
-    else {
-      let sorted = array.sort((item, nextItem) => (item.name.trim() < nextItem.name.trim()) ? 1 : (item.name.trim() > nextItem.name.trim()) ? -1 : 0);
-      this.setState({search: sorted, item: sorted[0], checkSortName: !this.state.checkSortName})
-    }
+    const array = (this.state.checkSearch ? this.state.searched : this.state.data);
+    if (this.state.checkSortName) { array.sort((item, nextItem) => (item.name.trim() < nextItem.name.trim()) ? -1 : (item.name.trim() > nextItem.name.trim()) ? 1 : 0);}
+    else { array.sort((item, nextItem) => (item.name.trim() < nextItem.name.trim()) ? 1 : (item.name.trim() > nextItem.name.trim()) ? -1 : 0);}
+    this.setState({checkSortName: !this.state.checkSortName, item: array[0]}) 
   }
   handleAgeSort(){
-    let array = this.state.searched.length == 0 ? this.state.data : !this.state.checkSearch ? this.state.searched : this.state.data;
-    if (this.state.checkSortAge) {
-      let sorted = array.sort((item, nextItem) => (item.age < nextItem.age) ? -1 : (item.age > nextItem.age) ? 1 : 0);
-      this.setState({search: sorted, item: sorted[0], checkSortAge: !this.state.checkSortAge}) 
-    }
-    else {
-      let sorted = array.sort((item, nextItem) => (item.age < nextItem.age) ? 1 : (item.age > nextItem.age) ? -1 : 0);
-      this.setState({search: sorted, item: sorted[0], checkSortAge: !this.state.checkSortAge})
-    }
+    const array = (this.state.checkSearch ? this.state.searched : this.state.data);
+    if (this.state.checkSortAge) { array.sort((item, nextItem) => (item.age < nextItem.age) ? -1 : (item.age > nextItem.age) ? 1 : 0);}
+    else {array.sort((item, nextItem) => (item.age < nextItem.age) ? 1 : (item.age > nextItem.age) ? -1 : 0);}
+    this.setState({checkSortAge: !this.state.checkSortAge, item: array[0]}) 
   }
   handleClear() {
-    let array = this.state.searched.length == 0 ? this.state.data : !this.state.checkSearch ? this.state.searched : this.state.data;
-    let sorted = array.sort((item, nextItem) => (item.id < nextItem.id) ? -1 : (item.id > nextItem.id) ? 1 : 0);
-    this.setState({search: sorted, item: sorted[0]}) 
-      this.setState({
-        data: this.state.store,
-        checkSearch: false,
-        checkSortAge: false,
-        checkSortName: false,
-        searched: this.state.store,
-        item: this.state.store[0]})
-        this.refs.search.value = '';
+    const store = this.state.store.sort((item, nextItem) => (item.id < nextItem.id) ? -1 : (item.id > nextItem.id) ? 1 : 0);
+    this.setState({
+      checkSearch: false,
+      checkSortAge: false,
+      checkSortName: false,
+      item: store[0],
+      data: store,
+      search: store
+     })
+    this.refs.search.value = '';
   }
   render() {
     return (
@@ -109,7 +98,7 @@ export default class App extends Component {
           </div>
           <div className="row">
             <div className="col-sm-4 col-md-3 col-lg-2">
-            {this.state.searched.length == 0 && this.state.checkSearch ? <h3>Nothing found :(</h3> :
+            {!this.state.item && this.state.checkSearch ? <h3>Nothing found :(</h3> : 
               <div className="picture">
                 <img src={'images/'+this.state.item.image+'.svg'}/>
                 <div className="description">
@@ -148,8 +137,7 @@ export default class App extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.searched.length == 0 && this.state.checkSearch ? null : this.state.searched.length != 0 ? 
-                    this.state.searched.map((item, index) => <Row handleclick={this.handleClick} item={item} key={index}/>) :
+                  {this.state.checkSearch ? this.state.searched.map((item, index) => <Row handleclick={this.handleClick} item={item} key={index}/>) :
                     this.state.data.map((item, index) => <Row handleclick={this.handleClick} item={item} key={index}/>)}
                   </tbody>
               </table>
