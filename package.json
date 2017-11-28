@@ -28,7 +28,7 @@
   ],
   "author": "Strikersoft LLC (strikersoft.com)",
   "license": "MIT",
-  "homepage": "https://strikersoft.com",
+  "homepage": "https://maksymyr.github.io/strikersoft-frontend-test-assignment",
   "dependencies": {
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
@@ -51,7 +51,7 @@
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "eslint-plugin-react": "^5.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
-    "gh-pages": "^0.11.0",
+    "gh-pages": "^1.1.0",
     "glob": "^7.0.3",
     "jsonfile": "^2.3.0",
     "node-sass": "^3.6.0",

@@ -61,12 +61,15 @@ export default class App extends Component {
     }
   }
   handleClear() {
+    let array = this.state.searched.length == 0 ? this.state.data : !this.state.checkSearch ? this.state.searched : this.state.data;
+    let sorted = array.sort((item, nextItem) => (item.id < nextItem.id) ? -1 : (item.id > nextItem.id) ? 1 : 0);
+    this.setState({search: sorted, item: sorted[0]}) 
       this.setState({
-        data: [...this.state.store],
+        data: this.state.store,
         checkSearch: false,
         checkSortAge: false,
         checkSortName: false,
-        searched: [],
+        searched: this.state.store,
         item: this.state.store[0]})
         this.refs.search.value = '';
   }
