@@ -105,6 +105,7 @@ class UserTable extends Component {
 		const currentUsers = users.filter(isUser);
 		const firstUser = currentUsers[0];
 		const currentUser = this.state.currentUser||firstUser; 
+
 		return (
 
 			<div className={`box row`}>
@@ -117,7 +118,7 @@ class UserTable extends Component {
 									<input type="text" className="form-control" id="exampleInputEmail1"
 										placeholder="Поиск" onChange={this.handleChangeUser} />
 								</div>
-								<div className='well'>
+								<div className='buttons'>
 									<button type="button" className="btn btn-default" onClick={(ev) => this.handleSortByName(ev)}>Sort by name</button>
 									<button type="button" className="btn btn-default" onClick={(ev) => this.handleSortByAge(ev)}>Sort by age</button>
 									<button type="button" className="btn btn-danger" onClick={(ev) => this.handleReset(ev)}>Reset</button>
@@ -136,11 +137,16 @@ class UserTable extends Component {
 													<p className='text-center col-md-6'>{`${currentUser.age}`}</p>
 												</div>
 												<div className='border-bottom-1 row'>
+													<p className='text-center col-md-6'>Favorite animal:</p>
+
+													<p className='text-center col-md-6'>{`${currentUser.image}`}</p>
+												</div>
+												<div className='border-bottom-1 row'>
 													<p className='text-center col-md-6'>Phone:</p>
 													<p className='text-left col-md-6'>{`${currentUser.phone}`}</p>
 												</div>
 
-												<p>{`Favorite phrase: ${currentUser.phrase}`}</p>
+												<p><strong>Favorite phrase</strong>:{` ${currentUser.phrase}`}</p>
 
 
 

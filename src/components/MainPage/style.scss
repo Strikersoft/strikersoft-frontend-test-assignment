@@ -26,11 +26,16 @@
             padding-left: 0;
             padding-right: 0;
         }
+        div > button{
+            margin-right: 10px; 
+        }
 
         .users {
+            margin-top: 20px;
             
-            
-            
+            .border-bottom-1 {
+                border-bottom :1px solid #cecece;
+            }
         }
     }
 
