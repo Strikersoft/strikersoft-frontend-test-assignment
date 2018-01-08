@@ -3,17 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import { loadAllUsers } from './../../actions';
 
-
+import decoratorReset from './../../decorators/toggleReset';
 import { mapToArr } from './../../changeDataStructure';
 import './style.scss';
 
 class UserTable extends Component {
-	static propTypes = {        
-        users: PropTypes.array.isRequired,        
-        openItemId: PropTypes.string,
-        toggleOpenItem: PropTypes.func
+	static propTypes = {
+		users: PropTypes.array.isRequired,		
+		toggleReset: PropTypes.func
 	}
-	
+
 	constructor(props) {
 		super(props);
 		debugger;
@@ -28,27 +27,40 @@ class UserTable extends Component {
 		this.handleChangeUser = this.handleChangeUser.bind(this);
 		this.handleSortByName = this.handleSortByName.bind(this);
 		this.handleSortByAge = this.handleSortByAge.bind(this);
+		this.handleReset = this.handleReset.bind(this);
 	}
 
 	handleChange(item) {
+		
 		this.setState({
 			currentUser: item
-
 		});
 	}
-	handleSortByName(item) {
+	handleSortByName(ev) {
+
 		this.setState({
 			sortByName: true,
-			sortByAge: false
+			sortByAge: false,
+			currentUser: null
+		});
+	}
+	handleSortByAge(ev) {
+		this.setState({
+			sortByName: false,
+			sortByAge: true,
+			currentUser: null
 
 		});
 	}
-	handleSortByAge(item) {
+	handleReset(ev) {
 		this.setState({
 			sortByName: false,
-			sortByAge: true
+			sortByAge: false,
+			currentUser: null
 
 		});
+		let { toggleReset } = this.props;
+		toggleReset(); // reset in decorator
 	}
 
 
@@ -56,8 +68,7 @@ class UserTable extends Component {
 
 		const target = event.target;
 		const value = target.value;
-
-
+		
 		this.setState({
 			userName: value
 		});
@@ -67,29 +78,33 @@ class UserTable extends Component {
 	componentWillMount() {
 
 		const { loaded, loading, dispatch } = this.props;
-		debugger;
+
 		if (!loaded && !loading) dispatch(loadAllUsers());
 	}
 
+	
 	render() {
 		const { users } = this.props;
-		
+		debugger;
+
+		if (this.state.sortByAge)
+			users.sort((a, b) => {
+				return a.age - b.age;
+			});
+
 		if (this.state.sortByName)
-			users.sort((a, b)=>{a.age - b.age});
-		
-		if (this.state.sortByName)
-			users.sort((a, b)=>{a.name > b.name});
-			
+			users.sort((a, b) => {
+				return a.name.localeCompare(b.name);
+			});
+
 		const search = this.state.userName;
 		const regex = new RegExp('^' + search, 'i');
 
 		const isUser = i => i.name.match(regex) !== null;
 
-		//	const currentUsers = this.props.users.filter(isUser);
 		const currentUsers = users.filter(isUser);
-		
-		debugger;
-
+		const firstUser = currentUsers[0];
+		const currentUser = this.state.currentUser||firstUser; 
 		return (
 
 			<div className={`box row`}>
@@ -102,35 +117,35 @@ class UserTable extends Component {
 									<input type="text" className="form-control" id="exampleInputEmail1"
 										placeholder="Поиск" onChange={this.handleChangeUser} />
 								</div>
-								<div className="btn-group">
-								<button type="button" className="btn btn-default" onClick={(ev) => this.handleSortByName(ev)}>Sort by name</button>
-								<button type="button" className="btn btn-default" onClick={(ev) => this.handleSortByAge(ev)}>Sort by age</button>
-								<button type="button" className="btn btn-primary" onClick={(ev) => this.handleReset(ev)}>Reset</button>
+								<div className='well'>
+									<button type="button" className="btn btn-default" onClick={(ev) => this.handleSortByName(ev)}>Sort by name</button>
+									<button type="button" className="btn btn-default" onClick={(ev) => this.handleSortByAge(ev)}>Sort by age</button>
+									<button type="button" className="btn btn-danger" onClick={(ev) => this.handleReset(ev)}>Reset</button>
 								</div>
 								<div className='users row'>
 									<div className="user col-md-3">
-									{!this.state.currentUser ? 'no user is choosen': 
-										<div className='well thumbnail'>
-											<img src={`images/${this.state.currentUser.image}.svg`} />
-											<div className='border-bottom-1 row'>
-											<h4 className='text-center'>{this.state.currentUser.name}</h4>
-											</div>
-											<div className='border-bottom-1 row'>
-											<p className='text-center col-md-6'>age:</p>
+										{!currentUser ? 'no user is choosen' :
+											<div className='well thumbnail'>
+												<img src={`images/${currentUser.image}.svg`} />
+												<div className='border-bottom-1 row'>
+													<h4 className='text-center'>{currentUser.name}</h4>
+												</div>
+												<div className='border-bottom-1 row'>
+													<p className='text-center col-md-6'>age:</p>
 
-											<p className='text-center col-md-6'>{`${this.state.currentUser.age}`}</p>
+													<p className='text-center col-md-6'>{`${currentUser.age}`}</p>
+												</div>
+												<div className='border-bottom-1 row'>
+													<p className='text-center col-md-6'>Phone:</p>
+													<p className='text-left col-md-6'>{`${currentUser.phone}`}</p>
+												</div>
+
+												<p>{`Favorite phrase: ${currentUser.phrase}`}</p>
+
+
+
 											</div>
-											<div className='border-bottom-1 row'>
-											<p className='text-center col-md-6'>Phone:</p>
-											<p className='text-left col-md-6'>{`${this.state.currentUser.phone}`}</p>
-											</div>
-											
-											<p>{`Favorite phrase: ${this.state.currentUser.phrase}`}</p>			
-											
-											
-										
-										</div>
-									}
+										}
 									</div>
 									<div className="col-md-9 table-responsive">
 										<table className="table table-striped table-bordered" >
@@ -186,5 +201,5 @@ const mapStateToProps = (state, props) => {
 	};
 };
 
-export default connect(mapStateToProps)(UserTable);
+export default decoratorReset(connect(mapStateToProps)(UserTable));
 
