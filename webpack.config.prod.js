@@ -29,6 +29,7 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['babel'],
+        sourceMap: true,
         include: path.join(__dirname, 'src')
       },
       {

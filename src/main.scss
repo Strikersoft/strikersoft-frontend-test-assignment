@@ -1,0 +1,23 @@
+//@import './fonts.scss';
+
+:global {
+  //@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+  body {
+	 margin: 0 0;
+	 padding: 0 0;
+  }
+
+  html {
+	 margin: 0 0;
+	 padding: 0 0;
+
+	font-size: 1vw;
+	//font-family: 'Roboto', sans-serif;
+
+	.ReactModal__Body--open {
+	  overflow: hidden;
+
+	}
+  }
+}

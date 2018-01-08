@@ -1,14 +1,19 @@
 // React based stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
 // Main app module
-import App from './App';
+import App from './components/App';
+import store from './store';
 
 // Styles
-import './styles.scss';
+
+import './main.scss';
 
 // Fetch polifill
 import 'whatwg-fetch';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<Provider store={store}>
+    <App />
+</Provider> , document.getElementById('app'));

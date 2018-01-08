@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  margin: 0 0;
+  padding: 0 0;
+
+   #logo img {
+   
+    width: 300px;
+    height: 100px;
+  }
+}
