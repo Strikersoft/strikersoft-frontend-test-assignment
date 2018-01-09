@@ -13,10 +13,9 @@ export function arrToMap(arr, DataRecord = Map) {
 }
 
 export function mapToArr(obj) {
-    //console.log(obj);
-    
+        
    return obj.valueSeq().toArray();
-    //return obj;
+   
 }
 export function arrToObj(arr) {
     

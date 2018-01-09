@@ -29,15 +29,11 @@ export default (usersState = defaultState, action) => {
 		case LOAD_ALL_USERS + START:
 			return usersState.set('loading', true);
 
-		case LOAD_ALL_USERS + SUCCESS:
-debugger;
+		case LOAD_ALL_USERS + SUCCESS:		
 			return usersState
 				.set('entities', arrToMap(response, usersRecord))
 				.set('loading', false)
 				.set('loaded', true);
-		
-
 	}
-
 	return usersState;
 };

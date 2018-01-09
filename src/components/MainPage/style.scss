@@ -1,18 +1,12 @@
-.box{
-    // background-color: white;
-    
+.box{    
     margin: 10px;
     margin-left: 0;
     margin-right: 0;
-    border-radius: 8px;
-    // padding: 21px;
-    // box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    border-radius: 8px;   
     margin-top: 40px;
     margin-bottom: 0;
-
    
     .wrapInfo{
-
         padding: 10px;        
         border-radius: 7px;
         border: 1px solid rgba(127, 165, 55, 0.5);
@@ -35,12 +29,13 @@
             
             .border-bottom-1 {
                 border-bottom :1px solid #cecece;
+                margin: 5px;
+                margin-left: 3px;
+                margin-right: 3px;
+    
             }
         }
     }
-
-
-
 }
 
 .mytr {

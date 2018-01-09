@@ -9,13 +9,12 @@ import './style.scss';
 
 class UserTable extends Component {
 	static propTypes = {
-		users: PropTypes.array.isRequired,		
+		users: PropTypes.array.isRequired,
 		toggleReset: PropTypes.func
 	}
 
 	constructor(props) {
 		super(props);
-		debugger;
 		this.state = {
 			sortByName: false,
 			sortByAge: false,
@@ -31,11 +30,12 @@ class UserTable extends Component {
 	}
 
 	handleChange(item) {
-		
+
 		this.setState({
 			currentUser: item
 		});
 	}
+
 	handleSortByName(ev) {
 
 		this.setState({
@@ -44,7 +44,9 @@ class UserTable extends Component {
 			currentUser: null
 		});
 	}
+
 	handleSortByAge(ev) {
+
 		this.setState({
 			sortByName: false,
 			sortByAge: true,
@@ -52,40 +54,38 @@ class UserTable extends Component {
 
 		});
 	}
+
 	handleReset(ev) {
 		this.setState({
 			sortByName: false,
 			sortByAge: false,
 			currentUser: null
-
 		});
 		let { toggleReset } = this.props;
 		toggleReset(); // reset in decorator
 	}
 
-
 	handleChangeUser(event) {
 
 		const target = event.target;
 		const value = target.value;
-		
-		this.setState({
-			userName: value
-		});
 
+		this.setState({
+			userName: value,
+			currentUser: null			
+		});
 	}
 
 	componentWillMount() {
 
 		const { loaded, loading, dispatch } = this.props;
 
-		if (!loaded && !loading) dispatch(loadAllUsers());
+		if (!loaded && !loading)
+			dispatch(loadAllUsers());
 	}
 
-	
 	render() {
 		const { users } = this.props;
-		debugger;
 
 		if (this.state.sortByAge)
 			users.sort((a, b) => {
@@ -101,16 +101,15 @@ class UserTable extends Component {
 		const regex = new RegExp('^' + search, 'i');
 
 		const isUser = i => i.name.match(regex) !== null;
-
+		debugger;
 		const currentUsers = users.filter(isUser);
 		const firstUser = currentUsers[0];
-		const currentUser = this.state.currentUser||firstUser; 
+		const currentUser = this.state.currentUser || firstUser;
 
 		return (
 
 			<div className={`box row`}>
 				<div className='block'>
-
 					<div className={'col-md-12'}>
 						<div className='wrapInfo'>
 							<div>
@@ -145,11 +144,7 @@ class UserTable extends Component {
 													<p className='text-center col-md-6'>Phone:</p>
 													<p className='text-left col-md-6'>{`${currentUser.phone}`}</p>
 												</div>
-
 												<p><strong>Favorite phrase</strong>:{` ${currentUser.phrase}`}</p>
-
-
-
 											</div>
 										}
 									</div>
@@ -157,11 +152,10 @@ class UserTable extends Component {
 										<table className="table table-striped table-bordered" >
 											<thead>
 												<tr>
-													<th>image</th>
-													<th>name</th>
-													<th>age</th>
-													<th>phone</th>
-
+													<th>Image</th>
+													<th>Name</th>
+													<th>Age</th>
+													<th>Phone</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -191,19 +185,15 @@ class UserTable extends Component {
 					</div>
 				</div>
 			</div>
-
 		);
 	}
 }
 
 const mapStateToProps = (state, props) => {
-	debugger;
 	return {
-
-		users: mapToArr(state.users.entities)
-		, loading: state.users.loading
-		, loaded: state.users.loaded
-
+		users: mapToArr(state.users.entities),
+		loading: state.users.loading,
+		loaded: state.users.loaded
 	};
 };
 

@@ -2,7 +2,7 @@
 import { LOAD_ALL_USERS, SUCCESS, START, FAIL } from './../constants';
 
 export const loadAllUsers = () => {
-	return (dispatch, getState) => {
+	return (dispatch) => {
 		dispatch({
 			type: LOAD_ALL_USERS + START
 		});

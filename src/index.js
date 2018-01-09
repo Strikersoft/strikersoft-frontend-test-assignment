@@ -9,7 +9,7 @@ import store from './store';
 
 // Styles
 
-import './main.scss';
+import './styles.scss';
 
 // Fetch polifill
 import 'whatwg-fetch';
