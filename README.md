@@ -1,4 +1,4 @@
-### Demo app is available [here](http://strikersoft.github.io/strikersoft-frontend-test-assignment/).
+### Demo app is available [here](http://bondarenkomaks.github.io/strikersoft-frontend-test-assignment/).
 
 
 ## Initial setup
